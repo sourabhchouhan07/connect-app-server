@@ -18,7 +18,7 @@ exports.user_find_one = async (req, res, next) => {
     console.log(id);
     //finding user
     try {
-      const user = await User.findOne({ _id: id });
+      const user = await User.findOne({ email : id });
       if (user) {
         res.status(200).send(user);
       } else {
