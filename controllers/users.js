@@ -128,6 +128,7 @@ exports.user_create_profile = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
+      regNo:req.body.regNo
     });
     console.log(user);
     try {
