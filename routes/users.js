@@ -21,13 +21,13 @@ router.post('/login', UserController.user_login);
 // router.get('/verify/:us', UserController.user_verify);
 
 // //finding one user
-// router.get('/users/:id', verify, UserController.user_find_one)
+router.get('/users/:id', UserController.user_find_one)
 
 // //getting all user
 // router.get('/users/', verify, UserController.user_find_all)
 
 //create profile
-router.post('/create',  UserController.user_create_profile)
+router.post('/create', UserController.user_create_profile)
 
 // //delete profile
 // router.delete('/delete', verify, UserController.user_delete)
