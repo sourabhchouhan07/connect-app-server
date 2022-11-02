@@ -114,10 +114,13 @@ router.put("/:id/dislike", async function (req, res) {
 });
 //commments
 router.put("/:id/comment", async function (req, res) {
+    console.log("hiii boi");
     try {
+        console.log("hiii boi");
+
         const post = await Post.findById(req.params.id);
         if (!post.likes.includes(req.body.userId)) {
-
+console.log("hua");
             // post.comments.unshift(userComment);
             await post.updateOne({ $push: { comments: { user: req.body.userId, comment: req.body.comment } } });
             res.status(200).send({
