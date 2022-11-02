@@ -119,10 +119,10 @@ router.put("/:id/dislike", async function (req, res) {
 router.put("/:id/comment", async function (req, res) {
     try {
         const post = await Post.findById(req.params.id);
-        if (!post.likes.includes(req.body._id)) {
+        if (1) {
 
             // post.comments.unshift(userComment);
-            await post.updateOne({ $push: { comments: { user: req.body._id, comment: req.body.comment } } });
+            await post.updateOne({ $push: { comments: { user: req.body.userId, comment: req.body.comment } } });
             res.status(200).send({
                 status: 200,
                 message: "post commented",
