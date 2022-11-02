@@ -74,7 +74,7 @@ router.put("/like/:id", async function (req, res) {
     console.log(req.body._id)
     try {
         const post = await Post.findById(req.params.id);
-        if (!post.likes.includes(req.body.userId)) {
+        if (!post.likes.includes(req.body._id)) {
             await post.updateOne({ $push: { likes: req.body._id } });
             res.status(200).send({
                 status: 200,
@@ -97,14 +97,14 @@ router.put("/like/:id", async function (req, res) {
 router.put("/:id/dislike", async function (req, res) {
     try {
         const post = await Post.findById(req.params.id);
-        if (!post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $push: { dislikes: req.body.userId } });
+        if (!post.likes.includes(req.body._id)) {
+            await post.updateOne({ $push: { dislikes: req.body._id } });
             res.status(200).send({
                 status: 200,
                 message: "dislike post",
               });
         } else {
-            await post.updateOne({ $pull: { dislikes: req.body.userId } });
+            await post.updateOne({ $pull: { dislikes: req.body._id } });
             res.status(200).send({
                 status: 202,
                 message: "remove dislike",
@@ -119,10 +119,10 @@ router.put("/:id/dislike", async function (req, res) {
 router.put("/:id/comment", async function (req, res) {
     try {
         const post = await Post.findById(req.params.id);
-        if (!post.likes.includes(req.body.userId)) {
+        if (!post.likes.includes(req.body._id)) {
 
             // post.comments.unshift(userComment);
-            await post.updateOne({ $push: { comments: { user: req.body.userId, comment: req.body.comment } } });
+            await post.updateOne({ $push: { comments: { user: req.body._id, comment: req.body.comment } } });
             res.status(200).send({
                 status: 200,
                 message: "post commented",
