@@ -68,19 +68,22 @@ router.delete("/:id", async function (req, res) {
 });
 
 // Like and dislike post 
-router.put("/:id/like", async function (req, res) {
+router.put("/like/:id", async function (req, res) {
+    console.log('aaya')
+    console.log(req.params.id)
+    console.log(req.body._id)
     try {
         const post = await Post.findById(req.params.id);
         if (!post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $push: { likes: req.body.userId } });
+            await post.updateOne({ $push: { likes: req.body._id } });
             res.status(200).send({
                 status: 200,
                 message: "liked post",
               });
         } else {
-            await post.updateOne({ $pull: { likes: req.body.userId } });
+            await post.updateOne({ $pull: { likes: req.body._id} });
             res.status(200).send({
-                status: 200,
+                status: 202,
                 message: "like remove",
               });
         };
@@ -103,7 +106,7 @@ router.put("/:id/dislike", async function (req, res) {
         } else {
             await post.updateOne({ $pull: { dislikes: req.body.userId } });
             res.status(200).send({
-                status: 200,
+                status: 202,
                 message: "remove dislike",
               });
         };
@@ -114,13 +117,10 @@ router.put("/:id/dislike", async function (req, res) {
 });
 //commments
 router.put("/:id/comment", async function (req, res) {
-    console.log("hiii boi");
     try {
-        console.log("hiii boi");
-
         const post = await Post.findById(req.params.id);
         if (!post.likes.includes(req.body.userId)) {
-console.log("hua");
+
             // post.comments.unshift(userComment);
             await post.updateOne({ $push: { comments: { user: req.body.userId, comment: req.body.comment } } });
             res.status(200).send({
