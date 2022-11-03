@@ -32,8 +32,8 @@ router.post('/create', UserController.user_create_profile)
 // //delete profile
 // router.delete('/delete', verify, UserController.user_delete)
 
-// //edit profile
-// router.put('/edit', verify, UserController.user_edit_profile)
+//edit profile
+router.put('/users/:id', UserController.user_edit_profile)
 
 // //change password
 // router.patch('/password', verify, UserController.user_change_password)

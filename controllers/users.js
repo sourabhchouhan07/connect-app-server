@@ -32,8 +32,9 @@ exports.user_find_one = async (req, res, next) => {
   //edit profile
   exports.user_edit_profile = async(req, res, next)=>{
     try{
-      const{_id, location, weight, phone} = req.body;
-      const user = await User.findOneAndUpdate({_id}, {location, weight, phone})
+      const _id=req.params.id;
+      const{name,gender,dob,branch,phone,imageUrl} = req.body;
+      const user = await User.findOneAndUpdate({_id}, {name,gender,dob,branch,phone,imageUrl})
       if(user){
         res.status(200).send({
           status: 200,
