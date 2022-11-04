@@ -27,13 +27,13 @@ router.get('/users/:id', UserController.user_find_one)
 // router.get('/users/', verify, UserController.user_find_all)
 
 //create profile
-router.post('/create', UserController.user_create_profile)
+router.post('/create/:id', UserController.user_create_profile)
 
 // //delete profile
 // router.delete('/delete', verify, UserController.user_delete)
 
 //edit profile
-router.put('/users/:id', UserController.user_edit_profile)
+router.put('/edit/:id', UserController.user_edit_profile)
 
 // //change password
 // router.patch('/password', verify, UserController.user_change_password)
