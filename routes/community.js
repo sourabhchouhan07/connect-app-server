@@ -33,7 +33,7 @@ router.get('/communities',async (req,res) =>{
 //get A specfic community
 router.get('/:id',async(req,res)=>{
     try{
-        const communities = await Community.findById(req.param.id);
+        const communities = await Community.findOne(req.param.id);
         console.log(communities);
         res.status(200).send(communities);
 
