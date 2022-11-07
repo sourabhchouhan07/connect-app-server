@@ -151,7 +151,7 @@ router.get("/allpost", async function (req, res) {
 // Fetch Posts
 router.get("/:id", async function (req, res) {
     try {
-        const post = await Post.findOne({userId:req.params.id});
+        const post = await Post.findById(req.params.id);
         res.status(200).send(post);
 
     } catch (error) {
