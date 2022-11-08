@@ -49,8 +49,9 @@ const postSchema = new mongoose.Schema(
         
       ],
     time:{
-        type : Date,
-        default : Date.now
+        type : String,
+        required : true
+    
     }
   }
 );
