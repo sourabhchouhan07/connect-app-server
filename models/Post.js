@@ -36,9 +36,9 @@ const postSchema = new mongoose.Schema(
             type: String,
             required:true
           },
-          date: {
-            type: Date,
-            default: Date.now(),
+          time: {
+            type: String ,
+           required : true
           },
           comment: {
             type: String,
