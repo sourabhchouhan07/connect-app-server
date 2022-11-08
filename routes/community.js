@@ -56,7 +56,7 @@ console.log(res.body);
 
             res.status(200).send({
                 status: 200,
-                
+
                 message: "member added",
               });
         }else{
@@ -74,7 +74,7 @@ router.get('/post/:id',async(req,res)=>{
 
     try{
 
-        const posts =await post.findOne({communityId : req.params.id})
+        const posts =await Post.find({communityId : req.params.id})
         if (posts) {
             res.status(200).send(posts);
           } else {
