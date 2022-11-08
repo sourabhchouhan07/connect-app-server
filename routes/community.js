@@ -52,10 +52,11 @@ console.log(res.body);
 
         if(community){
 
-            await community.updateOne({ $push: { members: req.body.userId } });
+            await community.updateOne({ $push: { members: req.body._id } });
 
             res.status(200).send({
                 status: 200,
+                
                 message: "member added",
               });
         }else{
