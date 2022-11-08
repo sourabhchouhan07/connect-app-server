@@ -43,7 +43,7 @@ router.get('/:id',async(req,res)=>{
     }
 });
 
-router.put('/addmember/:id',async(req,res)=>{
+router.patch('/addmember/:id',async(req,res)=>{
 
 console.log(res.body);
     try{
