@@ -129,18 +129,18 @@ router.put("/:id/dislike", async function (req, res) {
 router.put("/:id/comment", async function (req, res) {
     try {
         const post = await Post.findById(req.params.id);
-        if (1) {
+        
 
             // post.comments.unshift(userComment);
-            await post.updateOne({ $push: { comments: { user: req.body.userId, comment: req.body.comment,time: req.body.time } } });
+            await post.updateOne({ $push: { comments: { user: req.body.user, comment: req.body.comment,time: req.body.time } } });
             res.status(200).send({
                 status: 200,
                 message: "post commented",
               });
-        } else {
+        
             // await post.updateOne({$pull: {comments:req.body.userId }});
             // res.status(200).json("Post has been uncommmented");
-        }
+        
 
     } catch (error) {
         res.status(500).json(error);
