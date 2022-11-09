@@ -170,12 +170,12 @@ router.get("/:id", async function (req, res) {
     };
 });
 
-router.put("/saved/:id", async function (req, res) {
+router.patch("/saved/:id", async function (req, res) {
 
     try {
         const user = await User.findById(req.params.id);
-        if (!user.Saved.includes(req.body._id)) {
-            await user.updateOne({ $push: { Saved: req.body._id } });
+        if (!user.Saved.includes(req.body.postId)) {
+            await user.updateOne({ $push: { Saved: req.body.postId } });
 
 
             res.status(200).send({
