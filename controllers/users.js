@@ -194,6 +194,9 @@ exports.user_create_profile = async (req, res, next) => {
         next(createError(401, "Email not verified"));
         return;
       }
+
+
+      
   
       const validPass = await bcrypt.compare(req.body.password, user.password);
       if (!validPass) {
