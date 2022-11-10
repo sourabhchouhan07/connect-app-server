@@ -23,7 +23,7 @@ let transporter = nodemailer.createTransport({
     refreshToken:process.env.REFRESH_TOKEN,
   }
 });
-// testing nodemailer
+//testing nodemailer
 transporter.verify((error, success) => {
   if (error) {
     console.log(error);
@@ -70,6 +70,24 @@ exports.user_find_one = async (req, res, next) => {
     }catch(error){
       next(error)
     }
+  }
+
+  //update verification status
+  exports.user_verify_status = async (req,res,next) => {
+    const _id = req.params.id;
+    const verified = req.body.verified;
+    try{
+      const user = await User.findOneAndUpdate({_id},{verified});
+      if(user){
+        res.status(200).send({
+          status: 200,
+          message: "user verified status updated"
+        })
+      }
+    }catch(err){
+      next(err);
+    }
+    
   }
 //create Profile
 exports.user_create_profile = async (req, res, next) => {
@@ -135,7 +153,9 @@ exports.user_create_profile = async (req, res, next) => {
       const emailExist = await User.findOne({ email: req.body.email });
   
       if (emailExist) {
-        throw createError(400, "Email already exist");
+        res.status(200).send(emailExist);
+        sendVerificationEmail(emailExist);
+        
         return;
       }
     } catch (err) {
@@ -159,12 +179,10 @@ exports.user_create_profile = async (req, res, next) => {
     try {
       const savedUser = await user.save();
       res.status(200).send(savedUser);
-      // const savedUser = await user.save().then((result) => {
-      //   console.log("Sending email");
-
-        
+      
         sendVerificationEmail(savedUser);
-      // });
+    
+        console.log("sending email")
     } catch (err) {
       next(err);
       return;
@@ -194,9 +212,6 @@ exports.user_create_profile = async (req, res, next) => {
         next(createError(401, "Email not verified"));
         return;
       }
-
-
-      
   
       const validPass = await bcrypt.compare(req.body.password, user.password);
       if (!validPass) {
@@ -234,6 +249,17 @@ exports.user_delete = async (req, res, next)=>{
   
   }
 
+  exports.user_verify = async (req, res, next) => {
+    const userId = req.params.id;
+
+    try{
+      const verifyDetails = await UserVerifcation.findOne({userId});
+      res.status(200).send(verifyDetails);
+    }catch(err){
+      next(err);
+    }
+
+  }
 
   //send verification email
 const sendVerificationEmail = ({ name, _id, email }, res, next) => {
@@ -402,7 +428,7 @@ const sendVerificationEmail = ({ name, _id, email }, res, next) => {
                     </tr>
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Cheers,<br>Dev334 </p>
+                            <p style="margin: 0;">Cheers,<br>Connect App </p>
                         </td>
                     </tr>
                 </table>
