@@ -163,7 +163,7 @@ exports.user_create_profile = async (req, res, next) => {
       //   console.log("Sending email");
 
         
-        sendVerificationEmail(savedUser);
+        // sendVerificationEmail(savedUser);
       // });
     } catch (err) {
       next(err);
