@@ -150,6 +150,8 @@ router.put("/:id/comment", async function (req, res) {
 //fetch all post
 router.get("/allpost", async function (req, res) {
     try {
+
+        
         const posts = await Post.find().sort({ time: -1 });
 
         res.status(200).send(posts);
