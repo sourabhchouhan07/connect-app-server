@@ -152,7 +152,7 @@ router.get("/allpost", async function (req, res) {
     try {
 
         
-        const posts = await Post.find().sort({ time: -1 });
+        const posts = await Post.find();
 
         res.status(200).send(posts);
 
